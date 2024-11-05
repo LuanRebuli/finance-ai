@@ -1,4 +1,4 @@
-const Transactions = () => {
+const TransactionsPage = () => {
   return (
     <div>
       <h1>transactions</h1>
@@ -6,4 +6,4 @@ const Transactions = () => {
   );
 };
 
-export default Transactions;
+export default TransactionsPage;

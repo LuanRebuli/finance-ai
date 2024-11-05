@@ -1,4 +1,4 @@
-const Subscription = () => {
+const SubscriptionPage = () => {
   return (
     <div>
       <h1>subscprion page</h1>
@@ -6,4 +6,4 @@ const Subscription = () => {
   );
 };
 
-export default Subscription;
+export default SubscriptionPage;
