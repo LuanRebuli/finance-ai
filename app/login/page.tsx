@@ -15,7 +15,7 @@ const LoginPage = async () => {
       {/* ESQUERDA */}
       <div className="mx-auto flex h-full max-w-[550px] flex-col justify-center p-8">
         <Image
-          src="/logo.svg"
+          src="/financeai.svg"
           width={173}
           height={39}
           alt="Finance AI"
@@ -37,7 +37,7 @@ const LoginPage = async () => {
       {/* DIREITA */}
       <div className="relative h-full w-full">
         <Image
-          src="/login.png"
+          src="/banner-login.png"
           alt="Faça login"
           fill
           className="object-cover"
