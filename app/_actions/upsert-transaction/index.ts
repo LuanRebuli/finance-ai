@@ -30,14 +30,12 @@ export const upsertTransaction = async (params: AddTransactionParams) => {
   const transactionData = { ...params, userId };
 
   if (params.id) {
-    // Se o ID estiver presente, tenta atualizar
     await db.transactions.upsert({
       where: { id: params.id },
       update: transactionData,
       create: transactionData,
     });
   } else {
-    // Caso contrário, apenas cria uma nova transação
     await db.transactions.create({
       data: transactionData,
     });
