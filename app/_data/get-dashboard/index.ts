@@ -1,9 +1,17 @@
 import { db } from "@/app/_lib/prisma";
 import { TransactionType } from "@prisma/client";
 import { TotalExpensePerCategory, TransactionPercentagePerType } from "./types";
+import { redirect } from "next/navigation";
+import { auth } from "@clerk/nextjs/server";
 
 export const getDashBoard = async (month: string, year: string) => {
+  const { userId } = await auth();
+
+  if (!userId) {
+    redirect("/login");
+  }
   const where = {
+    userId,
     date: {
       gte: new Date(`${year}-${month}-01`),
       lt: new Date(`${year}-${month}-31`),
