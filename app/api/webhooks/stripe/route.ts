@@ -28,15 +28,20 @@ export const POST = async (request: Request) => {
       if (!clerkUserId) {
         return NextResponse.error();
       }
-      await clerkClient().users.updateUser(clerkUserId, {
-        privateMetadata: {
-          stripeCustomerId: customer,
-          stripeSubscriptionId: subscription,
-        },
-        publicMetadata: {
-          subscriptionPlan: "premium",
-        },
-      });
+      try {
+        await clerkClient().users.updateUser(clerkUserId, {
+          privateMetadata: {
+            stripeCustomerId: customer,
+            stripeSubscriptionId: subscription,
+          },
+          publicMetadata: {
+            subscriptionPlan: "premium",
+          },
+        });
+      } catch (error) {
+        console.error("Erro ao atualizar usuário no Clerk:", error);
+        return NextResponse.error();
+      }
       break;
     }
     case "customer.subscription.deleted": {
