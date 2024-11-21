@@ -22,29 +22,26 @@ export const POST = async (request: Request) => {
 
   switch (event.type) {
     case "invoice.paid": {
+      // Atualizar o usuário com o seu novo plano
       const { customer, subscription, subscription_details } =
         event.data.object;
       const clerkUserId = subscription_details?.metadata?.clerk_user_id;
       if (!clerkUserId) {
         return NextResponse.error();
       }
-      try {
-        await clerkClient().users.updateUser(clerkUserId, {
-          privateMetadata: {
-            stripeCustomerId: customer,
-            stripeSubscriptionId: subscription,
-          },
-          publicMetadata: {
-            subscriptionPlan: "premium",
-          },
-        });
-      } catch (error) {
-        console.error("Erro ao atualizar usuário no Clerk:", error);
-        return NextResponse.error();
-      }
+      await clerkClient().users.updateUser(clerkUserId, {
+        privateMetadata: {
+          stripeCustomerId: customer,
+          stripeSubscriptionId: subscription,
+        },
+        publicMetadata: {
+          subscriptionPlan: "premium",
+        },
+      });
       break;
     }
     case "customer.subscription.deleted": {
+      // Remover plano premium do usuário
       const subscription = await stripe.subscriptions.retrieve(
         event.data.object.id,
       );
